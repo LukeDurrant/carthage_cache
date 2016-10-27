@@ -30,7 +30,7 @@ module CarthageCache
         # This will avoid saving unused dependencies into
         # the archive.
         archive_path = File.join(project.tmpdir, project.archive_filename)
-        terminal.puts "Archiving Carthage build directory '#{project.archive_key}'."
+        terminal.puts "Archiving Carthage build directory."
         archiver.archive(project.carthage_build_directory, archive_path)
         archive_path
       end
