@@ -42,6 +42,17 @@ To generate a `.carthage_cache.yml` you just need to run
 carthage_cache config
 ```
 
+You'll be asked if you want to run local mode this will create a config with the default cache directory /Carthage/Cache this removes the dependancy on AWS reducing cost, (Create a symbolic link from the shared dropbox or google drive folder to your Carthage/Cache directory)
+ie 
+``` 
+ln -s /GoogleDrive/SharedCarthageCacheFolder/ /Users/Me/Projects/ProjectName/Carthage/Cache
+```
+
+```
+---
+:local_mode: Cache
+
+
 You can also set your credentials using the following environmental variables
 
  * `AWS_REGION`
