@@ -19,7 +19,7 @@ module CarthageCache
     def archive_filename
       @archive_filename ||= "#{archive_key}.zip"
     end
-
+      
     def archive_key
       cartfile.digest
     end

@@ -16,8 +16,12 @@ module CarthageCache
       @terminal = terminal.new(verbose)
       @archiver = Archiver.new
       @config = Configurator.new(@terminal, project_path, config).config
-      clazz = @config.read_only? ? HTTPRepository : repository
-      @repository = clazz.new(@config.bucket_name, @config.hash_object[:aws_s3_client_options])
+      if @config.local_only?
+        @repository = LocalRepository.new(@config.local_mode)
+      else
+        clazz = @config.read_only? ? HTTPRepository : repository
+        @repository = clazz.new(@config.bucket_name, @config.hash_object[:aws_s3_client_options])
+      end  
       @project = Project.new(project_path, CACHE_DIR_NAME, @terminal, @config.tmpdir, swift_version_resolver.new)
     end
 
@@ -30,7 +34,7 @@ module CarthageCache
         archive_installer.install
         true
       else
-        terminal.puts "There is no cached archive for the current Cartfile.resolved file."
+        terminal.puts "There is no cached archive for the current Cartfile.resolved file ('#{project.archive_key}')."
         false
       end
     end
